@@ -152,7 +152,7 @@ Write-Output "Processing mod files..."
 foreach ($modfile in $FileList) {
 
     # Import the JSON file containing the string to replace
-    $json = Get-Content -Path "$currentAppPath\$modfile" | ConvertFrom-Json
+    $json = Get-Content -Path $modfile.PSPath | ConvertFrom-Json
 
     # If $json is null, exit the script
     if ($null -eq $json) {
