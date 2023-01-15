@@ -67,6 +67,10 @@ Screenshots of before/after each of the above examples:
 ![image](https://user-images.githubusercontent.com/4725943/212524939-86b0315c-bc20-4194-b4af-a6714dd8bfb5.png)
 ![image](https://user-images.githubusercontent.com/4725943/212524955-284675ff-a7e9-4cd2-95b7-895b3e67c213.png)
 
+# How to contact
+- website: https://moosepuncher.com
+- discord: https://discordapp.com/invite/wqH6PHts
+
 Enjoy!
 
 # Support the developer
