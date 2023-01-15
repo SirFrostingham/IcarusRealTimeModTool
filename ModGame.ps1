@@ -69,7 +69,6 @@ if ($null -eq $FileList) {
         $link = "https://github.com/SirFrostingham/IcarusRealTimeModTool/raw/main/Mods/$tool"
         Write-Host "Downloading mod $tool -  $($link)"
         Invoke-WebRequest -Uri $link -OutFile "$currentRootModDirectory\$tool"
-        Expand-Archive -Path "$currentRootModDirectory\$tool" -DestinationPath $currentRootModDirectory
     } Else {
         Write-Out "Since no mods were found, exiting..."
         exit
