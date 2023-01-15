@@ -15,23 +15,14 @@ Set-Location $root
 Set-Location $currentAppPath
 Write-Output "Current OPERATING PATH: $currentAppPath"
 $currentGamePakDataDirectory = "$currentAppPath\Icarus\Content\Data"
-$currentModsDirectory = "$currentAppPath\Icarus\Content\Paks\mods"
+$currentPakModsDirectory = "$currentAppPath\Icarus\Content\Paks\mods"
 $currentModToolsDirectory = "$currentAppPath\ModTools"
+$currentRootModDirectory = "$currentAppPath\Mods"
 $tempPackageDirectory = "$currentAppPath\TEMPModsPackage"
 
 # **********************************************************************************************************************
 # Validate
 # **********************************************************************************************************************
-
-# Get mod files
-$FileList = Get-ChildItem -Path $currentAppPath -Filter "mod_*.json" -File
-
-# If $FileList is null, exit the script
-if ($null -eq $FileList) {
-    Write-Output "No mod files found in $currentAppPath"
-    Write-Output "Be sure this directory contains mod files that start with 'mod_' and end with '.json'"
-    exit
-}
 
 # Check if $currentGamePakDataDirectory exists
 If (Test-Path $currentGamePakDataDirectory) {
@@ -52,13 +43,46 @@ If (Test-Path $tempPackageDirectory) {
 }
 New-Item -ItemType directory -Path $tempPackageDirectory
 
-# Check if $currentModsDirectory exists, if not, create it
-If (Test-Path $currentModsDirectory) {
-    Write-Output "Current Mods Directory: $currentModsDirectory"
+# Check if $currentRootModsDirectory exists, if not, create it
+If (Test-Path $currentRootModDirectory) {
+    Write-Output "Current Root Mod Directory: $currentRootModDirectory"
 } Else {
-    Write-Output "Current Mods Directory: $currentModsDirectory does not exist"
-    New-Item -ItemType directory -Path $currentModsDirectory
-    Write-Output "Created $currentModsDirectory"
+    Write-Output "Current Root Mod Directory: $currentRootModDirectory does not exist"
+    New-Item -ItemType directory -Path $currentRootModDirectory
+    Write-Output "Created $currentRootModDirectory"
+}
+
+# Get mod files
+$FileList = Get-ChildItem -Path $currentRootModDirectory -Filter "mod_*.json" -File -Recurse
+
+# If $FileList is null, exit the script
+if ($null -eq $FileList) {
+    Write-Output "No mod files found in $currentRootModDirectory"
+    Write-Output "Be sure this directory contains mod files that start with 'mod_' and end with '.json'"
+    
+    # Ask if user wants to download the example mod
+    Write-Output "Would you like to download an example mod? (y/n)"
+    $userInput = Read-Host
+    if ($userInput -eq "y") {
+        Write-Output "Downloading example mod..."
+        $tool = "mod_Example_MyCoolMod.json"
+        $link = "https://github.com/SirFrostingham/IcarusRealTimeModTool/raw/main/Mods/$tool"
+        Write-Host "Downloading mod $tool -  $($link)"
+        Invoke-WebRequest -Uri $link -OutFile "$currentRootModDirectory\$tool"
+        Expand-Archive -Path "$currentRootModDirectory\$tool" -DestinationPath $currentRootModDirectory
+    } Else {
+        Write-Out "Since no mods were found, exiting..."
+        exit
+    }
+}
+
+# Check if $currentPakModsDirectory exists, if not, create it
+If (Test-Path $currentPakModsDirectory) {
+    Write-Output "Current Pak Mods Directory: $currentPakModsDirectory"
+} Else {
+    Write-Output "Current Pak Mods Directory: $currentPakModsDirectory does not exist"
+    New-Item -ItemType directory -Path $currentPakModsDirectory
+    Write-Output "Created $currentPakModsDirectory"
 }
 
 # Copy ...\Data\* to Temp Storage
@@ -85,28 +109,28 @@ If (Test-Path "$currentModToolsDirectory\UnrealPak.zip") {
 if ($shouldDownloadURTools) {
     $tool = "UnrealPak.zip"
     $link = "https://github.com/SirFrostingham/IcarusRealTimeModTool/raw/main/UnrealPakTools/$tool"
-    Write-Host "Downloading $tool mod -  $($link)"
+    Write-Host "Downloading tool $tool -  $($link)"
     Invoke-WebRequest -Uri $link -OutFile "$currentModToolsDirectory\$tool"
     Expand-Archive -Path "$currentModToolsDirectory\$tool" -DestinationPath $currentModToolsDirectory
     
     $tool = "_Repack.cmd"
     $link = "https://github.com/SirFrostingham/IcarusRealTimeModTool/raw/main/UnrealPakTools/$tool"
-    Write-Host "Downloading $tool mod -  $($link)"
+    Write-Host "Downloading tool $tool -  $($link)"
     Invoke-WebRequest -Uri $link -OutFile "$currentModToolsDirectory\$tool"
     
     $tool = "_RepackDirectory.cmd"
     $link = "https://github.com/SirFrostingham/IcarusRealTimeModTool/raw/main/UnrealPakTools/$tool"
-    Write-Host "Downloading $tool mod -  $($link)"
+    Write-Host "Downloading tool $tool -  $($link)"
     Invoke-WebRequest -Uri $link -OutFile "$currentModToolsDirectory\$tool"
     
     $tool = "_Unpack.cmd"
     $link = "https://github.com/SirFrostingham/IcarusRealTimeModTool/raw/main/UnrealPakTools/$tool"
-    Write-Host "Downloading $tool mod -  $($link)"
+    Write-Host "Downloading tool $tool -  $($link)"
     Invoke-WebRequest -Uri $link -OutFile "$currentModToolsDirectory\$tool"
     
     $tool = "_Unpackall.cmd"
     $link = "https://github.com/SirFrostingham/IcarusRealTimeModTool/raw/main/UnrealPakTools/$tool"
-    Write-Host "Downloading $tool mod -  $($link)"
+    Write-Host "Downloading tool $tool -  $($link)"
     Invoke-WebRequest -Uri $link -OutFile "$currentModToolsDirectory\$tool"
 } else {
     Write-Output "Skipping download of UnrealPak tools"
@@ -196,7 +220,7 @@ $scriptPath = "$tempPackageDirectory\_RepackDirectory.cmd"
 # Copy ModPack to Mods Directory
 # **********************************************************************************************************************
 Write-Output "Copying ModPack to Mods Directory..."
-Copy-Item -Path "$tempPackageDirectory\Modpack_P.pak" -Destination $currentModsDirectory -Recurse
+Copy-Item -Path "$tempPackageDirectory\Modpack_P.pak" -Destination $currentPakModsDirectory -Recurse
 
 # **********************************************************************************************************************
 # Clean up
