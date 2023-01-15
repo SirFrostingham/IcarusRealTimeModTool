@@ -67,9 +67,21 @@ Screenshots of before/after each of the above examples:
 ![image](https://user-images.githubusercontent.com/4725943/212524939-86b0315c-bc20-4194-b4af-a6714dd8bfb5.png)
 ![image](https://user-images.githubusercontent.com/4725943/212524955-284675ff-a7e9-4cd2-95b7-895b3e67c213.png)
 
-# How to contact
-- website: https://moosepuncher.com
-- discord: https://discordapp.com/invite/wqH6PHts
+# Important people and communities
+- ICARUS Official - https://discord.com/invite/surviveicarus
+   - Thanks RocketWerkz devs and Dean Hall for the amazing game!
+   - Thanks Dean Hall for work you did on DayZ Mod and DayZ SA that got me into the survival game genre
+- Inkarus - ICARUS Modding - https://discord.gg/2UrWDXjxUk
+   - TheOrangeFloof - Inkarus owner
+   - Jimk72 - Mod manager creator, modder and very helpful person
+   - Donovan - Very welcoming, helpful modder that pointed me in some interesting mods directions
+   - M. Becile - Extremely helpful, selfless modder that was willing to help me with stuff without asking
+   - CK_Dexerhaven - Knowledgeable vetran modder, and questions answerer on Inkarus
+- Without these key gaming communities, I would not have done any of this...
+
+# How to contact me
+- Website: https://moosepuncher.com
+- Discord: https://discordapp.com/invite/wqH6PHts
 
 Enjoy!
 
