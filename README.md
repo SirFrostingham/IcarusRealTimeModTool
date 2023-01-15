@@ -72,12 +72,13 @@ Screenshots of before/after each of the above examples:
    - Thanks RocketWerkz devs and Dean Hall for the amazing game!
    - Thanks Dean Hall for work you did on DayZ Mod (and eventually DayZ SA) that got me into the survival game genre
 - Inkarus - ICARUS Modding - https://discord.gg/2UrWDXjxUk
-   - TheOrangeFloof - Inkarus owner
+   - TheOrangeFloof - Inkarus discord owner and modder
    - Jimk72 - Mod manager creator, modder and very helpful person
    - Donovan - Very welcoming, helpful modder that pointed me in some interesting mods directions
    - M. Becile - Extremely helpful, selfless modder that was willing to help me with stuff without asking
    - CK_Dexerhaven - Knowledgeable vetran modder, and questions answerer on Inkarus
 - Without these key gaming communities, I would not have done any of this...
+- Sorry if I didn't fully describe all you do for the Icarus or gaming community. I gave it my best. I'll happily adjust anything you want; please just ask.
 
 # How to contact me
 - Website: https://moosepuncher.com
