@@ -4,7 +4,7 @@ Realtime find and replace approach to modifying the game Icarus
 # Why use this?
 - There is no longer a need to distribute PAK files of your mods per Icarus game releases. No matter when the Icarus game updates are released, this will always work.
 - No more merging your "modded content" with new game releases with different versions of your json updates. The system does game modding in real-time, any time you run the ModGame.ps1 script.
-- It's fast. Runs on top of Microsoft .Net Framework.
+- It's fast. Since this is Powershell, it runs on top of Microsoft .Net Framework.
 - It's safe. The code is simple and clearly commented with no surprises.
 - It's easy to use. Find stuff you want to change, make a json block that uses one of the find/replace mechanisms and this system does the heavy lifting for you as a mod creator and your clients.
 - If this system is used, it will work with many mods. The mod files would just be placed in the game root directory, and the system puts them all together in real-time.
