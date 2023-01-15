@@ -58,7 +58,8 @@ Realtime find and replace approach to modifying the game Icarus
 
 # How to install
 1. Install game Icarus (probably through Steam)
-2. Copy all of files from this repo to the root game directory (example: D:\SteamLibrary\steamapps\common\Icarus)
+2. Copy 2 files from this repo (`ModGame.ps1` and `mod_MyCoolMod.json`) to the root game directory (example: D:\SteamLibrary\steamapps\common\Icarus)
+	- The script will download any missing components.
 3. Set up your PC to be able to run Powershell scripts: Run `cmd.exe` -> execute: `powershell Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
 4. From the Icarus game directory, run: `ModGame.ps1`
 
