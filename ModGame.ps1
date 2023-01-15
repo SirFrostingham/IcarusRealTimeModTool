@@ -38,14 +38,7 @@ If (Test-Path $currentGamePakDataDirectory) {
     Write-Output "Current Game Pak Data Directory: $currentGamePakDataDirectory"
 } Else {
     Write-Output "Current Game Pak Data Directory: $currentGamePakDataDirectory does not exist"
-    exit
-}
-
-# Check if $currentModsDirectory exists
-If (Test-Path $currentModsDirectory) {
-    Write-Output "Current Mods Directory: $currentModsDirectory"
-} Else {
-    Write-Output "Current Mods Directory: $currentModsDirectory does not exist"
+    Write-Output "Be sure you downloaded the game ICARUS, and this script is running from the game's root directory"
     exit
 }
 
@@ -58,6 +51,15 @@ If (Test-Path $tempPackageDirectory) {
     Remove-Item $tempPackageDirectory -Recurse
 }
 New-Item -ItemType directory -Path $tempPackageDirectory
+
+# Check if $currentModsDirectory exists, if not, create it
+If (Test-Path $currentModsDirectory) {
+    Write-Output "Current Mods Directory: $currentModsDirectory"
+} Else {
+    Write-Output "Current Mods Directory: $currentModsDirectory does not exist"
+    New-Item -ItemType directory -Path $currentModsDirectory
+    Write-Output "Created $currentModsDirectory"
+}
 
 # Copy ...\Data\* to Temp Storage
 Copy-Item -Path "$currentGamePakDataDirectory\*" -Destination $tempPackageDirectory -Recurse
