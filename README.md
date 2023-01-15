@@ -70,7 +70,7 @@ Screenshots of before/after each of the above examples:
 # Important people and communities
 - ICARUS Official - https://discord.com/invite/surviveicarus
    - Thanks RocketWerkz devs and Dean Hall for the amazing game!
-   - Thanks Dean Hall for work you did on DayZ Mod and DayZ SA that got me into the survival game genre
+   - Thanks Dean Hall for work you did on DayZ Mod (and eventually DayZ SA) that got me into the survival game genre
 - Inkarus - ICARUS Modding - https://discord.gg/2UrWDXjxUk
    - TheOrangeFloof - Inkarus owner
    - Jimk72 - Mod manager creator, modder and very helpful person
