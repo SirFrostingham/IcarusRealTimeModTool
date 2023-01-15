@@ -78,7 +78,7 @@ Screenshots of before/after each of the above examples:
    - M. Becile - Extremely helpful, selfless modder that was willing to help me with stuff without asking
    - CK_Dexerhaven - Knowledgeable vetran modder, and questions answerer on Inkarus
 - Without these key gaming communities, I would not have done any of this...
-- Sorry if I didn't fully describe all you do for the Icarus or gaming community. I gave it my best. I'll happily adjust anything you want; please just ask.
+- Sorry if I didn't fully describe all you do for Icarus or gaming communities. I gave it my best. I'll happily adjust anything you want; please just ask.
 
 # How to contact me
 - Website: https://moosepuncher.com
