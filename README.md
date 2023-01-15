@@ -63,6 +63,12 @@ Realtime find and replace approach to modifying the game Icarus
 3. Set up your PC to be able to run Powershell scripts: Run `cmd.exe` -> execute: `powershell Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
 4. From the Icarus game directory, run: `ModGame.ps1`
 
+Screenshots of before/after each of the above examples:
+![image](https://user-images.githubusercontent.com/4725943/212524939-86b0315c-bc20-4194-b4af-a6714dd8bfb5.png)
+![image](https://user-images.githubusercontent.com/4725943/212524955-284675ff-a7e9-4cd2-95b7-895b3e67c213.png)
+
+Enjoy!
+
 # Support the developer
 ---
 If you would like to support development of this software, you can contribute with a donation by clicking on the Donate Icon below. Thank you for your support!
