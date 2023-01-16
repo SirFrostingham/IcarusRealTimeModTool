@@ -7,7 +7,7 @@ Realtime find and replace approach to modifying the game ICARUS
 - It's fast. Since this is Powershell, it runs on top of Microsoft .Net Framework.
 - It's safe. The code is simple and clearly commented with no surprises.
 - It's easy to use. Find stuff you want to change, make a json block that uses one of the find/replace mechanisms and this system does the heavy lifting for you as a mod creator and your clients.
-- If this system is used, it will work with many mods. The mod files would just be placed in the game root directory `./Mods`, and the system puts them all together in real-time.
+- If this system is used, it will work with many mods. The mod files would just be placed in the game root directory -> `.\Mods`, and the system puts them all together in real-time.
 - It can be easily integrated with other scripts or launching mechanisms.
 
 # How does it work?
