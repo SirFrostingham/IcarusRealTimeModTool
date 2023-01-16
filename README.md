@@ -14,10 +14,10 @@ Realtime find and replace approach to modifying the game ICARUS
 - Run a single script `[ICARUS_game_directory]\GameMod.ps1` to run the mods process.
 - The system looks in `[ICARUS_game_directory]\Mods` directory for any `mod_*.json` config files, which tell this system how to mod the game.
    - It supports many `mod_*.json` files (example: `mod_Example_MyCoolMod.json`, `mod_YourCoolMod.json`, `mod_TheirCoolMod.json`, etc.)
-- Per the config data, it will find and replace all targets in the UNPACKED `[ICARUS_game_directory]\ICARUS\Content\Data\data.pak` json files (see below for more info)
+- Per the config data, it will find and replace all targets in the UNPACKED `[Icarus_game_directory]\Icarus\Content\Data\data.pak` json files (see below for more info)
    - It currently supports 2 types of find and replace: `ReplaceAll` and `ReplaceTarget`
-- It does all work in `[ICARUS_game_directory]\TEMPModsPackage` directory.
-- After the mods are done, a file called `Modpack_P.pak` is placed in `[ICARUS_game_directory]\ICARUS\Content\Paks\mods\` directory.
+- It does all work in `[Icarus_game_directory]\TEMPModsPackage` directory.
+- After the mods are done, a file called `Modpack_P.pak` is placed in `[Icarus_game_directory]\Icarus\Content\Paks\mods\` directory.
    - This is a full repack of the original ICARUS game data.pak file.
 - The `[ICARUS_game_directory]\TEMPModsPackage` directory is purposefully left in the game root directory, so mod developers can review the json file game updates.
 
