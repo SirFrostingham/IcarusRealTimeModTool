@@ -11,6 +11,7 @@ Realtime find and replace approach to modifying the game ICARUS
 - It can be easily integrated with other scripts or launching mechanisms.
 
 # How does it work?
+- Run a single script `[ICARUS_game_directory]\GameMod.ps1` to run the mods process.
 - The system looks in `[ICARUS_game_directory]\Mods` directory for any `mod_*.json` config files, which tell this system how to mod the game.
    - It supports many `mod_*.json` files (example: `mod_Example_MyCoolMod.json`, `mod_YourCoolMod.json`, `mod_TheirCoolMod.json`, etc.)
 - Per the config data, it will find and replace all targets in the UNPACKED `[ICARUS_game_directory]\ICARUS\Content\Data\data.pak` json files (see below for more info)
