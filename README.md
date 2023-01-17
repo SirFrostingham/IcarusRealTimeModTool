@@ -23,7 +23,7 @@ Realtime find and replace approach to modifying the game ICARUS
    - It currently supports 2 types of find and replace: `ReplaceAll` and `ReplaceTarget`
 - It does all work in `[Icarus_game_directory]\TEMPModsPackage` directory.
 - After the mods are done, a file called `Modpack_P.pak` is placed in `[Icarus_game_directory]\Icarus\Content\Paks\mods\` directory.
-   - This is a full repack of the original ICARUS game data.pak file.
+   - This is a full repack of the original ICARUS game data.pak file + mods.
 - The TEMPModsPackage is purposefully left in the game root directory, so mod developers can review the json file game updates.
 
 # Example config (also provided in this repo)
