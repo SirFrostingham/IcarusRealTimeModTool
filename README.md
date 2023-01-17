@@ -73,7 +73,7 @@ Realtime find and replace approach to modifying the game ICARUS
       - It's recommended to run this script every time you want to run ICARUS to ensure mods are applied to any potential game update.
 	  - It runs in order: `Mods_GetLatestModScripts.cmd`, `Mods_LaunchModGameProcess.cmd`, and launches ICARUS
 
-# Screenshots of before/after each of the above examples:
+# Screenshots before/after each mod type example:
 ![image](https://user-images.githubusercontent.com/4725943/212524939-86b0315c-bc20-4194-b4af-a6714dd8bfb5.png)
 ![image](https://user-images.githubusercontent.com/4725943/212524955-284675ff-a7e9-4cd2-95b7-895b3e67c213.png)
 
