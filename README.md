@@ -7,16 +7,11 @@ Realtime find and replace approach to modifying the game ICARUS
 - It's fast. Since this is Powershell, it runs on top of Microsoft .Net Framework.
 - It's safe. The code is simple and clearly commented with no surprises.
 - It's easy to use. Find stuff you want to change, make a json block that uses one of the find/replace mechanisms and this system does the heavy lifting for you as a mod creator and your clients.
-- If this system is used, it will work with many mods. The mod files would just be placed in the `[Icarus_game_directory]\Mods` directory, and the system puts them all together in real-time.
+- If this system is used, it will work with many mods. The mod files would just be placed in the game root directory, and the system puts them all together in real-time.
 - It can be easily integrated with other scripts or launching mechanisms.
 
 # How does it work?
-- Depending on what you want to do, run one of the scripts:
-   - **[RECOMMENDED]** Run mods process with wrapper functionality: `[Icarus_game_directory]\Mods_LaunchModGameProcess.cmd`
-   - [OPTIONAL] Run mods process via powershell: `[Icarus_game_directory]\GameMod.ps1`
-   - [OPTIONAL] Update scripts from this GitHub repo: `[Icarus_game_directory]\Mods_GetLatestModScripts.cmd`
-      - It is recommended to run this periodically to get scripts updates.
-   - **[RECOMMENDED]** Run game with mods (runs get latest and mod game scripts): `[Icarus_game_directory]\Mods_RunIcarusWithMods.cmd`
+- Run a single script `[Icarus_game_directory]\GameMod.ps1` to run the mods process.
 - The system looks in `[Icarus_game_directory]\Mods` directory for any `mod_*.json` config files, which tell this system how to mod the game.
    - It supports many `mod_*.json` files (example: `mod_Example_MyCoolMod.json`, `mod_YourCoolMod.json`, `mod_TheirCoolMod.json`, etc.)
 - Per the config data, it will find and replace all targets in the UNPACKED `[Icarus_game_directory]\Icarus\Content\Data\data.pak` json files (see below for more info)
@@ -64,17 +59,14 @@ Realtime find and replace approach to modifying the game ICARUS
 
 # How to install
 1. Install game ICARUS (probably through Steam)
-2. **[RECOMMENDED]** Copy `LaunchIcarusWithMods.cmd` to the ICARUS root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
-   - If you want a script that self updates all scripts from the GitHub repo and launches the game after performing the mods automation, do this step.
-   - It will do steps #3, #4 , #5 and #6.
-3. **[OPTIONAL]** Copy `ModGame.ps1` to the ICARUS root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
-   - If you just want the Powershell script that runs the mods automation, do this step.
-   - The script will download any missing components, including _asking you_ if you want to download an example mod.
-   - It needs at least 1 mod for the system to work.
-   - This will not launch the game for you, and will just perform the mods automation.
-4. Set up your PC to be able to run Powershell scripts: Run `cmd.exe` -> execute: `powershell Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
-5. From the root ICARUS game directory, run: `ModGame.ps1`
-6. When ready, launch the game.
+2. Copy `Mods_GetLatestModScripts.cmd` to the ICARUS root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
+3. Depending on what you want to do run the following script:
+   - Run mods process and don't run the game: `Mods_LaunchModGameProcess.cmd`
+      - Useful for modding ICARUS
+   - Run mods process and run the game: `Mods_RunIcarusWithMods.cmd`
+      - Run this script every time to run ICARUS
+	  - It runs in order: `Mods_GetLatestModScripts.cmd`, `Mods_LaunchModGameProcess.cmd`, and launches ICARUS
+	  - This ensures no matter when the game was updated, the mods are applied
 
 Screenshots of before/after each of the above examples:
 ![image](https://user-images.githubusercontent.com/4725943/212524939-86b0315c-bc20-4194-b4af-a6714dd8bfb5.png)
