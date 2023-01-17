@@ -58,15 +58,15 @@ Realtime find and replace approach to modifying the game ICARUS
 - Search around the internet for Powershell Escape characters.
 
 # How to install
-1. Install game ICARUS (probably through Steam)
+1. Install game ICARUS (preferrably through Steam)
 2. Copy `Mods_GetLatestModScripts.cmd` to the ICARUS root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
-3. Depending on what you want to do run the following script:
-   - Run mods process and don't run the game: `Mods_LaunchModGameProcess.cmd`
-      - Useful for modding ICARUS
-   - Run mods process and run the game: `Mods_RunIcarusWithMods.cmd`
-      - Run this script every time to run ICARUS
+3. Run `Mods_GetLatestModScripts.cmd` to get the necessary scripts
+3. Depending on what you want to do run the following:
+   - **Run mods process and DOES NOT run the game**: `Mods_LaunchModGameProcess.cmd`
+      - Useful for modding ICARUS and reviewing the mods process output
+   - **Run mods process and RUN the game**: `Mods_RunIcarusWithMods.cmd`
+      - It's recommended to run this script every time you want to run ICARUS to ensure mods are applied to any potential game update.
 	  - It runs in order: `Mods_GetLatestModScripts.cmd`, `Mods_LaunchModGameProcess.cmd`, and launches ICARUS
-	  - This ensures no matter when the game was updated, the mods are applied
 
 Screenshots of before/after each of the above examples:
 ![image](https://user-images.githubusercontent.com/4725943/212524939-86b0315c-bc20-4194-b4af-a6714dd8bfb5.png)
