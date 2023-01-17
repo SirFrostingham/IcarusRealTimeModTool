@@ -7,11 +7,16 @@ Realtime find and replace approach to modifying the game ICARUS
 - It's fast. Since this is Powershell, it runs on top of Microsoft .Net Framework.
 - It's safe. The code is simple and clearly commented with no surprises.
 - It's easy to use. Find stuff you want to change, make a json block that uses one of the find/replace mechanisms and this system does the heavy lifting for you as a mod creator and your clients.
-- If this system is used, it will work with many mods. The mod files would just be placed in the game root directory, and the system puts them all together in real-time.
+- If this system is used, it will work with many mods. The mod files would just be placed in the `[Icarus_game_directory]\Mods` directory, and the system puts them all together in real-time.
 - It can be easily integrated with other scripts or launching mechanisms.
 
 # How does it work?
-- Run a single script `[Icarus_game_directory]\GameMod.ps1` to run the mods process.
+- Depending on what you want to do, run one of the scripts:
+   - **[RECOMMENDED]** Run mods process with wrapper functionality: `[Icarus_game_directory]\Mods_LaunchModGameProcess.cmd`
+   - [OPTIONAL] Run mods process via powershell: `[Icarus_game_directory]\GameMod.ps1`
+   - [OPTIONAL] Update scripts from this GitHub repo: `[Icarus_game_directory]\Mods_GetLatestModScripts.cmd`
+      - It is recommended to run this periodically to get scripts updates.
+   - **[RECOMMENDED]** Run game with mods (runs get latest and mod game scripts): `[Icarus_game_directory]\Mods_RunIcarusWithMods.cmd`
 - The system looks in `[Icarus_game_directory]\Mods` directory for any `mod_*.json` config files, which tell this system how to mod the game.
    - It supports many `mod_*.json` files (example: `mod_Example_MyCoolMod.json`, `mod_YourCoolMod.json`, `mod_TheirCoolMod.json`, etc.)
 - Per the config data, it will find and replace all targets in the UNPACKED `[Icarus_game_directory]\Icarus\Content\Data\data.pak` json files (see below for more info)
