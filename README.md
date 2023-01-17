@@ -60,10 +60,10 @@ Realtime find and replace approach to modifying the game ICARUS
 # How to install
 1. Install game ICARUS (probably through Steam)
 2. **[RECOMMENDED]** Copy `LaunchIcarusWithMods.cmd` to the ICARUS root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
-   - If you want a script that self updates all scripts from the GitHub repo and launches the game after performing the mods automation, do copy step in #2.
+   - If you want a script that self updates all scripts from the GitHub repo and launches the game after performing the mods automation, do this step.
    - It will do steps #3, #4 , #5 and #6.
 3. **[OPTIONAL]** Copy `ModGame.ps1` to the ICARUS root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
-   - If you just want the Powershell script that runs the mods automation, do copy step #3.
+   - If you just want the Powershell script that runs the mods automation, do this step.
    - The script will download any missing components, including _asking you_ if you want to download an example mod.
    - It needs at least 1 mod for the system to work.
    - This will not launch the game for you, and will just perform the mods automation.
