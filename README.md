@@ -7,7 +7,7 @@ Realtime find and replace approach to modifying the game ICARUS
 - It's fast. Since this is Powershell, it runs on top of Microsoft .Net Framework.
 - It's safe. The code is simple and clearly commented with no surprises.
 - It's easy to use. Find stuff you want to change, make a json block that uses one of the find/replace mechanisms and this system does the heavy lifting for you as a mod creator and your clients.
-- If this system is used, it will work with many mods. The mod files would just be placed in the game root directory -> `.\Mods`, and the system puts them all together in real-time.
+- If this system is used, it will work with many mods. The mod files would just be placed in the game root directory, and the system puts them all together in real-time.
 - It can be easily integrated with other scripts or launching mechanisms.
 
 # How does it work?
@@ -19,7 +19,7 @@ Realtime find and replace approach to modifying the game ICARUS
 - It does all work in `[Icarus_game_directory]\TEMPModsPackage` directory.
 - After the mods are done, a file called `Modpack_P.pak` is placed in `[Icarus_game_directory]\Icarus\Content\Paks\mods\` directory.
    - This is a full repack of the original ICARUS game data.pak file.
-- The `[ICARUS_game_directory]\TEMPModsPackage` directory is purposefully left in the game root directory, so mod developers can review the json file game updates.
+- The TEMPModsPackage is purposefully left in the game root directory, so mod developers can review the json file game updates.
 
 # Example config (also provided in this repo)
 ```
@@ -58,12 +58,17 @@ Realtime find and replace approach to modifying the game ICARUS
 - Search around the internet for Powershell Escape characters.
 
 # How to install
+You have 2 install options: 
+- [RECOMMENDED] If you want a script that self updates all scripts from the GitHub repo and launches the game after performing the mods automation, do copy step in #2.
+- [OPTIONAL] If you just want the Powershell script that runs the mods automation, do copy step #3.
+
 1. Install game ICARUS (probably through Steam)
-2. Copy 1 files from this repo (`ModGame.ps1`) to the root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
+2. [RECOMMENDED] Copy LaunchIcarusWithMods.cmd to the ICARUS game root directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
+3. [OPTIONAL] Copy 1 files from this repo (`ModGame.ps1`) to the root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
    - The script will download any missing components, including asking you if you want to download an example mod.
    - It needs at least 1 mod for the system to work.
-3. Set up your PC to be able to run Powershell scripts: Run `cmd.exe` -> execute: `powershell Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
-4. From the root ICARUS game directory, run: `ModGame.ps1`
+4. Set up your PC to be able to run Powershell scripts: Run `cmd.exe` -> execute: `powershell Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
+5. From the root ICARUS game directory, run: `ModGame.ps1`
 
 Screenshots of before/after each of the above examples:
 ![image](https://user-images.githubusercontent.com/4725943/212524939-86b0315c-bc20-4194-b4af-a6714dd8bfb5.png)
