@@ -58,17 +58,18 @@ Realtime find and replace approach to modifying the game ICARUS
 - Search around the internet for Powershell Escape characters.
 
 # How to install
-You have 2 install options: 
-- [RECOMMENDED] If you want a script that self updates all scripts from the GitHub repo and launches the game after performing the mods automation, do copy step in #2.
-- [OPTIONAL] If you just want the Powershell script that runs the mods automation, do copy step #3.
-
 1. Install game ICARUS (probably through Steam)
-2. [RECOMMENDED] Copy LaunchIcarusWithMods.cmd to the ICARUS game root directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
-3. [OPTIONAL] Copy 1 files from this repo (`ModGame.ps1`) to the root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
-   - The script will download any missing components, including asking you if you want to download an example mod.
+2. **[RECOMMENDED]** Copy LaunchIcarusWithMods.cmd to the ICARUS game root directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
+   - If you want a script that self updates all scripts from the GitHub repo and launches the game after performing the mods automation, do copy step in #2.
+   - It will do steps #3, #4 , #5 and #6.
+3. **[OPTIONAL]** Copy 1 files from this repo (`ModGame.ps1`) to the root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
+   - If you just want the Powershell script that runs the mods automation, do copy step #3.
+   - The script will download any missing components, including _asking you_ if you want to download an example mod.
    - It needs at least 1 mod for the system to work.
+   - This will not launch the game for you, and will just perform the mods automation.
 4. Set up your PC to be able to run Powershell scripts: Run `cmd.exe` -> execute: `powershell Set-ExecutionPolicy -ExecutionPolicy RemoteSigned`
 5. From the root ICARUS game directory, run: `ModGame.ps1`
+6. When ready, launch the game.
 
 Screenshots of before/after each of the above examples:
 ![image](https://user-images.githubusercontent.com/4725943/212524939-86b0315c-bc20-4194-b4af-a6714dd8bfb5.png)
