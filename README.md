@@ -12,6 +12,7 @@ Realtime find and replace approach to modifying the game ICARUS
 
 # How does it work?
 - Run a single script `[Icarus_game_directory]\GameMod.ps1` to run the mods process.
+   - Alternatively, you can run `[Icarus_game_directory]\LaunchIcarusWithMods.cmd` that will update the mods scripts, execute the `GameMod.ps1` automation and launch the game.
 - The system looks in `[Icarus_game_directory]\Mods` directory for any `mod_*.json` config files, which tell this system how to mod the game.
    - It supports many `mod_*.json` files (example: `mod_Example_MyCoolMod.json`, `mod_YourCoolMod.json`, `mod_TheirCoolMod.json`, etc.)
 - Per the config data, it will find and replace all targets in the UNPACKED `[Icarus_game_directory]\Icarus\Content\Data\data.pak` json files (see below for more info)
