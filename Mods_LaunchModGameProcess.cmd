@@ -4,6 +4,13 @@ REM set up
 SET CurrentDir="%~dp0"
 ECHO %CurrentDir%
 
+@REM If Mods_GetLatestModScripts.cmd does not exist, download it
+if not exist ".\Mods_GetLatestModScripts.cmd" (
+    curl.exe -o Mods_GetLatestModScripts.cmd https://raw.githubusercontent.com/SirFrostingham/IcarusRealTimeModTool/main/Mods_GetLatestModScripts.cmd
+)
+
+call .\Mods_GetLatestModScripts.cmd
+
 REM popd first in case the script was interrupted and the directory is still set to the previous script's directory
 popd
 pushd %CurrentDir%
