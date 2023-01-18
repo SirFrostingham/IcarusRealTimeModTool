@@ -189,14 +189,28 @@ foreach ($modfile in $FileList) {
         }
         if ($jsonObject.Type -eq "ReplaceAll") {
 
-            # Get all files in the directory and subdirectories
-            $files = Get-ChildItem -Recurse -Path "$tempPackageDirectory\data" -File
+            if($jsonObject.Path -eq "") {
+                # Get all files in the directory and subdirectories
+                $files = Get-ChildItem -Recurse -Path "$tempPackageDirectory\data" -File
 
-            # Loop through each file
-            foreach ($file in $files) {
+                # Loop through each file
+                foreach ($file in $files) {
+                    # Read the contents of the file
+                    $fileContent = Get-Content -Path $file.FullName
+
+                    # Replace the string
+                    $fileContent = $fileContent -replace [regex]::escape($jsonObject.Find), $jsonObject.Replace
+
+                    # Write the modified content back to the file
+                    $fileContent | Set-Content -Path $file.FullName
+                }
+            } else {
+                # File is supplied, only replace in that file
+                $fileTarget = "$tempPackageDirectory\data\$($jsonObject.Path)"
+                
                 # Read the contents of the file
                 $fileContent = Get-Content -Path $file.FullName
-
+                
                 # Replace the string
                 $fileContent = $fileContent -replace [regex]::escape($jsonObject.Find), $jsonObject.Replace
 
