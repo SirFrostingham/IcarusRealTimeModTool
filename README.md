@@ -64,7 +64,7 @@ Realtime find and replace approach to modifying the game ICARUS
 
 # How to install
 1. Install game ICARUS (preferrably through Steam)
-2. Depending on what you want to do, COPY any of these scripts to the ICARUS root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
+2. Depending on what you want to do, COPY and EXECUTE any of these scripts to the ICARUS root game directory (example: D:\SteamLibrary\steamapps\common\ICARUS)
    - `Mods_GetLatestModScripts.cmd` - **Just download all scripts and NOT run anything**
       - Just downloads all scripts to your game directory
    - `Mods_LaunchModGameProcess.cmd` - **Run mods process and DOES NOT run the game**
