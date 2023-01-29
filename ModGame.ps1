@@ -1,6 +1,161 @@
 # **********************************************************************************************************************
+# Icarus Real Time Mod Tool
 # Description: This script will find and replace strings in all unpacked data files for Icarus
+# Author: SirFrostingham
+# License: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License
 # **********************************************************************************************************************
+
+# **********************************************************************************************************************
+# Init
+# **********************************************************************************************************************
+
+$Source = @'
+using System;
+using System.Collections.Generic;
+
+
+    namespace IcarusModDataNamespace
+    {
+        public class ModDataObject
+        {
+            public ModDataObject()
+            {
+                ListReplaceTargets = new List<ModData>();
+                ListReplaceAlls = new List<ModData>();
+            }
+
+            public List<ModData> ListReplaceTargets { get; set; }
+            public List<ModData> ListReplaceAlls { get; set; }
+
+            public void AddModData(string type, string path, string desc, string index, string find, string replace, string foundIndex, string isReplaced)
+            {
+                if (type == "ReplaceTarget")
+                {
+                    // Check if path already exists and update it
+                    var modData = ListReplaceTargets.Find(x => x.Path == path);
+                    if (modData != null)
+                    {
+                        modData.AddReplaceTarget(path, desc, index, find, replace, Convert.ToBoolean(foundIndex), Convert.ToBoolean(isReplaced));
+                        return;
+                    }
+                    else
+                    {
+                        ListReplaceTargets.Add(new ModData
+                        {
+                            Path = path,
+                            ListReplaceTarget = new List<ReplaceTarget>
+                            {
+                                new ReplaceTarget
+                                {
+                                    Desc = desc,
+                                    Index = index,
+                                    Find = find,
+                                    Replace = replace,
+                                    FoundIndex = Convert.ToBoolean(foundIndex),
+                                    IsReplaced = Convert.ToBoolean(isReplaced)
+                                }
+                            }
+                        });
+                    }
+                }
+                else if (type == "ReplaceAll")
+                {
+                    // Check if path already exists and update it
+                    var modData = ListReplaceAlls.Find(x => x.Path == path);
+                    if (modData != null)
+                    {
+                        modData.AddReplaceAll(path, desc, index, find, replace);
+                        return;
+                    }
+                    else
+                    {
+                        ListReplaceAlls.Add(new ModData
+                        {
+                            Path = path,
+                            ListReplaceAll = new List<ReplaceAll>
+                            {
+                                new ReplaceAll
+                                {
+                                    Desc = desc,
+                                    Index = index,
+                                    Find = find,
+                                    Replace = replace
+                                }
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    throw new Exception("Invalid type: " + type);
+                }
+            }
+        }
+
+        public class ModData
+        {
+            public ModData()
+            {
+                ListReplaceTarget = new List<ReplaceTarget>();
+                ListReplaceAll = new List<ReplaceAll>();
+            }
+
+            public string Path { get; set; }
+            public List<ReplaceTarget> ListReplaceTarget { get; set; }
+            public List<ReplaceAll> ListReplaceAll { get; set; }
+
+            public void AddReplaceTarget(string path, string desc, string index, string find, string replace, bool foundIndex = false, bool isReplaced = false)
+            {
+                Path = path;
+                ListReplaceTarget.Add(new ReplaceTarget
+                {
+                    Desc = desc,
+                    Index = index,
+                    Find = find,
+                    Replace = replace,
+                    FoundIndex = foundIndex,
+                    IsReplaced = isReplaced
+                });
+            }
+
+            public void AddReplaceAll(string path, string desc, string index, string find, string replace)
+            {
+                Path = path;
+                ListReplaceAll.Add(new ReplaceAll
+                {
+                    Desc = desc,
+                    Index = index,
+                    Find = find,
+                    Replace = replace
+                });
+            }
+        }
+
+        public class ReplaceTarget
+        {
+            public string Desc { get; set; }
+            public string Index { get; set; }
+            public string Find { get; set; }
+            public string Replace { get; set; }
+            public bool FoundIndex { get; set; }
+            public bool IsReplaced { get; set; }
+        }
+
+        public class ReplaceAll
+        {
+            public string Desc { get; set; }
+            public string Index { get; set; }
+            public string Find { get; set; }
+            public string Replace { get; set; }
+        }
+    }
+'@
+
+# Add-Type -TypeDefinition $Source -Language CSharp -PassThru
+if (-not ([System.Management.Automation.PSTypeName]'IcarusModDataNamespace.ModDataObject').Type)
+{
+    Add-Type -TypeDefinition $Source
+}
 
 Write-Output "Starting Icarus Real Time Mod Tool..."
 
@@ -146,78 +301,119 @@ Write-Output "Unpacking all data files..."
 # Find and Replace strings in all data files
 # **********************************************************************************************************************
 
-# Loop through each mod file and replace content
-Write-Output "Processing mod files..."
+# Get Data: Loop through json objects and build a list of files to process and the strings to replace
+# Convert flat json objects to a complex object structure
+$modDataObject = New-Object 'IcarusModDataNamespace.ModDataObject'
 foreach ($modfile in $FileList) {
-
     # Import the JSON file containing the string to replace
     $json = Get-Content -Path $modfile.PSPath | ConvertFrom-Json
 
-    # If $json is null, exit the script
-    if ($null -eq $json) {
-        Write-Output "JSON file ($currentAppPath\$modfile) is empty"
-        Write-Output "Be sure this file exists and contains the find and replace data"
-        exit
+    foreach ($jsonObject in $json) {
+        $modDataObject.AddModData($jsonObject.Type, $jsonObject.Path, $jsonObject.Desc, $jsonObject.Index, $jsonObject.Find, $jsonObject.Replace, $false, $false)
+    }
+}
+
+# Loop through each $modDataObject.ListReplaceTargets and $modDataObject.ListReplaceAlls, depending on the type
+foreach ($modData in $modDataObject.ListReplaceTargets) {
+    Write-Output "##############################################################################################################
+    ReplaceTarget Path -  
+        - Processing: $($modData.Path)
+        
+        "
+        
+    $fileTarget = "$tempPackageDirectory\data\$($modData.Path)"
+    
+    # Get the file content
+    $fileContent = Get-Content -Path $fileTarget
+
+    # # Delete file
+    Remove-Item $fileTarget
+
+    # Iterate through $fileContent for a target and replace a single string literal target
+    foreach ($line in $fileContent) {
+
+        foreach ($replaceItem in $modData.ListReplaceTarget) {
+
+            if ($replaceItem.IsReplaced) {
+                continue
+            }
+            
+            # Replace the string literal
+            if ($line -match $replaceItem.Index) {
+                $replaceItem.FoundIndex = $true
+            }
+
+            #if ($line -match [regex]::escape($replaceItem.Find)) {
+            if (($replaceItem.FoundIndex) -and ($replaceItem.IsReplaced -eq $false) -and ($line -match [regex]::escape($replaceItem.Find))) {
+                Write-Output " **********************************************************************************************************************
+                ReplaceTarget Item -
+                    - Processing: Desc: '$($replaceItem.Desc)', Index: '$($replaceItem.Index)', Find: '$($replaceItem.Find)', Replace: '$($replaceItem.Replace)'
+                    
+                    "
+
+                $line = $line -replace [regex]::escape($replaceItem.Find), $replaceItem.Replace
+                $replaceItem.IsReplaced = $true
+            }
+            
+        }
+        
+        Add-Content $fileTarget $line
     }
 
-    # For each of the json objects, find and replace the string
-    foreach ($jsonObject in $json) {
-        if ($jsonObject.Type -eq "ReplaceTarget") {
-            $fileTarget = "$tempPackageDirectory\data\$($jsonObject.Path)"
+}
 
+foreach ($modData in $modDataObject.ListReplaceAlls) {
+    Write-Output "##############################################################################################################
+    ReplaceAll Path -  
+        - Processing: $($modData.Path)
+        
+        "
+    
+    if($modData.Path -eq "") {
+        # Get all files in the directory and subdirectories
+        $files = Get-ChildItem -Recurse -Path "$tempPackageDirectory\data" -File
+
+        # Loop through each file
+        foreach ($file in $files) {
             # Read the contents of the file
-            $fileContent = Get-Content -Path "$fileTarget"
+            $fileContent = Get-Content -Path $file.FullName
 
-            # Delete file
-            Remove-Item -Path "$fileTarget"
-
-            # Iterate through $fileContent for a target and replace a single string literal target
-            $foundIndexLine = $false
-            $replacedLine = $false
-            foreach ($line in $fileContent) {
-                if ($line -match $jsonObject.Index) {
-                    $foundIndexLine = $true
-                }
-                if (($foundIndexLine) -and ($replacedLine -eq $false) -and ($line -match [regex]::escape($jsonObject.Find))) {
-                    $newLine = $line -replace [regex]::escape($jsonObject.Find), $jsonObject.Replace
-                    Add-Content "$fileTarget" $newLine
-                    $replacedLine = $true
-                } else {
-                    Add-Content "$fileTarget" $line
-                }
-            }
-        }
-        if ($jsonObject.Type -eq "ReplaceAll") {
-
-            if($jsonObject.Path -eq "") {
-                # Get all files in the directory and subdirectories
-                $files = Get-ChildItem -Recurse -Path "$tempPackageDirectory\data" -File
-
-                # Loop through each file
-                foreach ($file in $files) {
-                    # Read the contents of the file
-                    $fileContent = Get-Content -Path $file.FullName
-
-                    # Replace the string
-                    $fileContent = $fileContent -replace [regex]::escape($jsonObject.Find), $jsonObject.Replace
-
-                    # Write the modified content back to the file
-                    $fileContent | Set-Content -Path $file.FullName
-                }
-            } else {
-                # File is supplied, only replace in that file
-                $fileTarget = "$tempPackageDirectory\data\$($jsonObject.Path)"
-                
-                # Read the contents of the file
-                $fileContent = Get-Content -Path $file.FullName
-                
+            # Loop through each $modData.ListReplaceAll
+            foreach ($replaceItem in $modData.ListReplaceAll) {
+                Write-Output " **********************************************************************************************************************
+                ReplaceAll -> ReplaceTarget Item -  
+                    - Processing: Desc: '$($replaceItem.Desc)', Index: '$($replaceItem.Index)', Find: '$($replaceItem.Find)', Replace: '$($replaceItem.Replace)'
+                    
+                    "
+    
                 # Replace the string
-                $fileContent = $fileContent -replace [regex]::escape($jsonObject.Find), $jsonObject.Replace
-
-                # Write the modified content back to the file
-                $fileContent | Set-Content -Path $file.FullName
+                $fileContent = $fileContent -replace [regex]::escape($replaceItem.Find), $replaceItem.Replace
             }
+
+            # Write the modified content back to the file
+            $fileContent | Set-Content -Path $file.FullName
         }
+    } else {
+        # File is supplied, only replace in that file
+        $fileTarget = "$tempPackageDirectory\data\$($replaceItem.Path)"
+        
+        # Read the contents of the file
+        $fileContent = Get-Content -Path $file.FullName
+        
+        # Loop through each $modData.ListReplaceAll
+        foreach ($replaceItem in $modData.ListReplaceAll) {
+            Write-Output " **********************************************************************************************************************
+            ReplaceAll -> ReplaceTarget Item -  
+                - Processing: Desc: '$($replaceItem.Desc)', Index: '$($replaceItem.Index)', Find: '$($replaceItem.Find)', Replace: '$($replaceItem.Replace)'
+                
+                "
+
+            # Replace the string
+            $fileContent = $fileContent -replace [regex]::escape($replaceItem.Find), $replaceItem.Replace
+        }
+
+        # Write the modified content back to the file
+        $fileContent | Set-Content -Path $file.FullName
     }
 }
 Write-Output "Finished processing mod files"
